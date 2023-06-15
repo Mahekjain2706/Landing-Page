@@ -1,76 +1,89 @@
 import React from 'react';
-import { Container, Row, Col } from "reactstrap";
+import { MDBFooter, MDBContainer, MDBCol, MDBRow, MDBIcon, MDBBtn } from 'mdb-react-ui-kit';
 
-const Footer = () => {
-  const links = [
-    { id : 1, title : "Feature",
-      child : [
-          { title : "LOREM IPSUM", link : "/" },
-          { title : "LOREM IPSUM", link : "/" },
-          { title : "LOREM IPSUM", link : "/" },
-          { title : "LOREM IPSUM", link : "/" }
-      ]
-    },
-    { id : 2, title : "About Us",
-      child : [
-          { title : "Contact Us", link : "/" },
-          { title : "FAQs", link : "/" },
-          { title : "Privacy Policy", link : "/" },
-      ]
-    },
-  ];
-  
-  return (
-    <section className="footer section">
-      <Container>
-        <Row>
-          <Col lg={4}>
-              <div className="mb-4">
-                <p className="text-muted mt-4 mb-2">email@email.com</p>
-                <h6 className="text-muted font-weight-normal">+99 1234-5678-9</h6>
-              </div>
-          </Col>
-          <Col lg={8}>
-            <Row>
-              {
-                links.map((link, key) =>
-                  <Col key={key} md={4}>
-                    <h6 className="text-dark mb-3">{link.title}</h6>
-                    <ul className="list-unstyled company-sub-menu">
-                      {
-                        link.child.map((fLink, key) =>
-                          <li key={key}><a href={fLink.link}>{fLink.title}</a></li>
-                        )
-                      }
-                    </ul>
-                  </Col>
-                )
-              }
-              
-              <Col md={4}>
-                <h6 className="text-dark mb-3">Our Address</h6>
-                <p className="text-muted f-14">1234 Lorem Ipsum dummy text, 12345</p>
-                <h6 className="text-muted pb-2">Email: email@email.com</h6>
-                <ul className="list-unstyled footer-social-list mt-4">
-                  <li className="list-inline-item"><a href="#"><i className="mdi mdi-facebook"></i></a></li>
-                  <li className="list-inline-item"><a href="#"><i className="mdi mdi-instagram"></i></a></li>
-                  <li className="list-inline-item"><a href="#"><i className="mdi mdi-linkedin"></i></a></li>
-                </ul>
-              </Col>
-            </Row>
-          </Col>
-        </Row>
-
-        <Row className="mt-5">
-          <Col md={12}>
-            <div className="text-center text-muted">
-              <p className="mb-0 f-15">2020 © Name. Design by Name</p>
-            </div>
-          </Col>
-        </Row>
-      </Container>
-    </section>
+export default function App() {
+  return React.createElement(
+    MDBFooter,
+    { className: 'bg-light text-center text-white' },
+    React.createElement(
+      MDBContainer,
+      { className: 'p-4 pb-0' },
+      React.createElement(
+        'section',
+        { className: 'mb-4' },
+        React.createElement(
+          MDBBtn,
+          {
+            floating: true,
+            className: 'm-1',
+            style: { backgroundColor: '#3b5998' },
+            href: '#!',
+            role: 'button'
+          },
+          React.createElement(MDBIcon, { fab: true, icon: 'facebook-f' })
+        ),
+        React.createElement(
+          MDBBtn,
+          {
+            floating: true,
+            className: 'm-1',
+            style: { backgroundColor: '#55acee' },
+            href: '#!',
+            role: 'button'
+          },
+          React.createElement(MDBIcon, { fab: true, icon: 'twitter' })
+        ),
+        React.createElement(
+          MDBBtn,
+          {
+            floating: true,
+            className: 'm-1',
+            style: { backgroundColor: '#dd4b39' },
+            href: '#!',
+            role: 'button'
+          },
+          React.createElement(MDBIcon, { fab: true, icon: 'google' })
+        ),
+        React.createElement(
+          MDBBtn,
+          {
+            floating: true,
+            className: 'm-1',
+            style: { backgroundColor: '#ac2bac' },
+            href: '#!',
+            role: 'button'
+          },
+          React.createElement(MDBIcon, { fab: true, icon: 'instagram' })
+        ),
+        React.createElement(
+          MDBBtn,
+          {
+            floating: true,
+            className: 'm-1',
+            style: { backgroundColor: '#0082ca' },
+            href: '#!',
+            role: 'button'
+          },
+          React.createElement(MDBIcon, { fab: true, icon: 'linkedin-in' })
+        ),
+        React.createElement(
+          MDBBtn,
+          {
+            floating: true,
+            className: 'm-1',
+            style: { backgroundColor: '#333333' },
+            href: '#!',
+            role: 'button'
+          },
+          React.createElement(MDBIcon, { fab: true, icon: 'github' })
+        )
+      )
+    ),
+    React.createElement(
+      'div',
+      { className: 'text-center p-3', style: { backgroundColor: 'rgba(51, 45, 45)' } },
+      '\xA9 2020 Copyright:',
+    )
   );
 }
 
-export default Footer;

@@ -1,19 +1,15 @@
 import Layout from "../components/Layout";
 import Header from "../components/Header";
 import Hero from "../components/Hero";
-import Feature from '../components/Feature';
-import Service from '../components/Service';
-import About from '../components/About';
-import Footer from '../components/Footer';
+import Footer from "../components/Footer";
+import 'mdb-react-ui-kit/dist/css/mdb.min.css';
+import "@fortawesome/fontawesome-free/css/all.min.css";
 
 const Index = () => {
   return (
     <Layout pageTitle="Landing Page Nextjs">
       <Header />
       <Hero />
-      <Feature/>
-      <Service />
-      <About />
       <Footer />
     </Layout>
   )
