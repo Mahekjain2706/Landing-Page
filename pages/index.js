@@ -3,7 +3,6 @@ import Header from "../components/Header";
 import Hero from "../components/Hero";
 import Footer from "../components/Footer";
 import 'mdb-react-ui-kit/dist/css/mdb.min.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const Index = () => {
   return (

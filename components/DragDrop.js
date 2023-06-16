@@ -7,7 +7,6 @@ const DragDropFiles = () => {
   const handleDragOver = (event) => {
     event.preventDefault();
   };
-
   const handleDrop = (event) => {
     event.preventDefault();
     setFiles(event.dataTransfer.files)
