@@ -1,10 +1,13 @@
-import React from 'react';
-import { Container, Row, Col } from 'reactstrap';
-// import Modal from 'reactstrap';
+import React,{useState} from 'react';
+import { Container} from 'reactstrap';
+import DragDropFiles from './DragDrop';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+import ProgressBar from 'react-bootstrap/ProgressBar';
 
-function MyVerticallyCenteredModal(props) {
+
+
+function Modal_temp(props) {
   return (
     <Modal
       {...props}
@@ -12,21 +15,21 @@ function MyVerticallyCenteredModal(props) {
       aria-labelledby="contained-modal-title-vcenter"
       centered
     >
+    
       <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">
-          Modal heading
+        <Modal.Title id="contained-modal-title-vcenter" >
+          Upload your Pdf 
         </Modal.Title>
       </Modal.Header>
-      <Modal.Body>
-        <h4>Centered Modal</h4>
-        <p>
-          Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-          dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac
-          consectetur ac, vestibulum at eros.
-        </p>
+      <Modal.Body id="contained-modal-title-vcenter" >
+        <Container className='.drag-area' style={{ border:'dashed',padding:'50px 50px',textAlign:'center'}}
+        >
+            <DragDropFiles/>
+        </Container>
       </Modal.Body>
+      <ProgressBar animated now ={45} style={{height:'10px'}}/>
       <Modal.Footer>
-        <Button onClick={props.onHide}>Close</Button>
+        <Button>Upload</Button>
       </Modal.Footer>
     </Modal>
   );
@@ -38,7 +41,7 @@ const Hero = (props) => {
     <section className="section position-relative">
       <Container>
         <div className="pr">
-          <img src="/images/group-members.png" alt="..." className="img-fluid" />
+          <img src="./images/group-members.png" alt="..." className="img-fluid" />
         </div>
         <div className="pr">
           <p className="text-uppercase text-primary font-weight-medium ">Lorem Ipsum</p>
@@ -49,7 +52,7 @@ const Hero = (props) => {
           Launch vertically centered modal
         </Button>
 
-        <MyVerticallyCenteredModal
+        <Modal_temp
           show={modalShow}
           onHide={() => setModalShow(false)}
         />
