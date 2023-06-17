@@ -11,8 +11,6 @@ import { config } from '@fortawesome/fontawesome-svg-core'
 import '@fortawesome/fontawesome-svg-core/styles.css'
 import FontAwesome from 'react-fontawesome';
 config.autoAddCss = false
-import { MDBCarousel, MDBCarouselItem } from 'mdb-react-ui-kit'
-import Tesseract from 'tesseract.js';
 
 
 

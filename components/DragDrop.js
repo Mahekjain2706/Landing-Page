@@ -2,9 +2,6 @@ import React,{ useState, useRef } from "react";
 import Tesseract from 'tesseract.js';
 
 
-
-
-
 let DragDropFiles = () => {
 
   let inputRef = useRef();
@@ -78,9 +75,9 @@ let DragDropFiles = () => {
           <input 
             type="file"
             multiple
-            onChange={(e) => setFiles(e.target.files)}
+            onChange={(e) => setFiles(URL.createObjectURL(e.target.files[0]))}
             hidden
-            accept=" .pdf , image/png, image/jpeg"
+            accept=" image/png, image/jpeg"
             ref={inputRef}
           />
           <button className="btn btn-primary" onClick={(e) => inputRef.current.click()} >Select Files</button>
