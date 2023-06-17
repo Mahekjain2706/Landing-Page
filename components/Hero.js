@@ -5,9 +5,16 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import Image from 'next/image'
-// import TextArea from './TextArea';import { config } from '@fortawesome/fontawesome-svg-core'
+// import TextArea from './TextArea';
+import 'mdb-react-ui-kit/dist/css/mdb.min.css';
+import { config } from '@fortawesome/fontawesome-svg-core'
 import '@fortawesome/fontawesome-svg-core/styles.css'
+import FontAwesome from 'react-fontawesome';
 config.autoAddCss = false
+import { MDBCarousel, MDBCarouselItem } from 'mdb-react-ui-kit'
+import Tesseract from 'tesseract.js';
+
+
 
 
 function Modal_temp(props) {
@@ -21,6 +28,7 @@ function Modal_temp(props) {
     
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter" >
+          <FontAwesome ></FontAwesome>
           Upload your Pdf 
         </Modal.Title>
       </Modal.Header>
@@ -30,15 +38,15 @@ function Modal_temp(props) {
             <DragDropFiles/>
         </Container>
       </Modal.Body>
-      <ProgressBar animated now ={45} style={{height:'10px'}}/>
       <Modal.Footer>
-        <Button>Upload</Button>
+        <Button>Done</Button>
       </Modal.Footer>
     </Modal>
   );
 }
 
 const Hero = (props) => {
+
   const [modalShow, setModalShow] = React.useState(false);
   return (
     <section className="section position-relative">
@@ -63,14 +71,19 @@ const Hero = (props) => {
           Launch vertically centered modal
           </Button>
           </div>
-          
-        
+          <br></br>
+          <br></br>
+
+          <textarea style={{border:'grey solid',borderRadius:'10px'}} className="form-control w-100 mt-1"
+                rows="30"
+                value={props.text}
+                onChange={(e) => props.setText(e.target.value)} >
+          </textarea>
         
         <Modal_temp
           show={modalShow}
           onHide={() => setModalShow(false)}
         />
-
       </Container>
     </section>
   );
