@@ -80,7 +80,8 @@ const Hero = (props) => {
         <div>
           <textarea style={{ border: 'grey solid', borderRadius: '10px' }} className="form-control w-100"
             rows="10"
-            value={data}>
+            value={data}
+            onChange={()=>setData(null)}>
           </textarea>
         </div>
 
