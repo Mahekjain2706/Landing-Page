@@ -1,13 +1,13 @@
 import React,{ useState, useRef } from "react";
 import Tesseract from 'tesseract.js';
+import './Hero';
 
-
-let DragDropFiles = () => {
-
+function DragDropFiles({childToParent}){
+  
   let inputRef = useRef();
   const [files, setFiles] = React.useState('');
   const [isLoading, setIsLoading] = React.useState(false);
-  const [text, setText] = React.useState('');
+  const [text,setText] = React.useState('');
   const [progress, setProgress] = React.useState(0);
 
   const handleSubmit = () => {
@@ -47,16 +47,13 @@ let DragDropFiles = () => {
   if (files) return (
     <div className="uploads">
         <ul>
-            {Array.from(files).map((file, idx) => <li key={idx}>{file.name}</li> )}
+            {Array.from(files).map((files, idx) => <li key={idx}>{files.name}</li> )}
         </ul>
-        {!isLoading && !text && (
-        <>
         <div className="actions">
             <button className="btn btn-primary" onClick={() => setFiles(null)} style={{margin:'5px'}}>Cancel</button>
             <button className="btn btn-primary" onClick={(handleSubmit)} style={{margin: '5px'}}>Upload</button>
+            <button className="btn btn-primary" onClick={() => childToParent(text)} style={{margin: '5px'}}>Done</button>
         </div>
-        </>
-        )}
         
     </div>
   )
@@ -70,17 +67,19 @@ let DragDropFiles = () => {
         >
           <h1>Drag and Drop Files to Upload</h1>
           <h1>Or</h1>
-          {!isLoading && !text && (
+          {!isLoading &&(
             <>
           <input 
             type="file"
             multiple
             onChange={(e) => setFiles(URL.createObjectURL(e.target.files[0]))}
             hidden
-            accept=" image/png, image/jpeg"
+            accept=" application/pdf, image/png, image/jpeg"
             ref={inputRef}
           />
           <button className="btn btn-primary" onClick={(e) => inputRef.current.click()} >Select Files</button>
+          
+
           </>
           
           )}
@@ -91,8 +90,10 @@ let DragDropFiles = () => {
                 {progress}%{' '}
               </progress>{' '}
               <p className="text-center py-0 my-0">Converting:- {progress} %</p>
+
             </>
           )}
+
         </div>
     </>
   );

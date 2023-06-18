@@ -1,79 +1,86 @@
 import React from 'react';
-import Tesseract from 'tesseract.js';
+import pdfjsLib from 'pdfjs'
+// import pdfMake from "pdfmake/build/pdfmake";
+// import pdfFonts from "pdfmake/build/vfs_fonts";
+import { Document, Page, pdfjs } from 'react-pdf'
+pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`
 
-const App = () => {
-  const [isLoading, setIsLoading] = React.useState(false);
-  const [image, setImage] = React.useState('');
-  const [text, setText] = React.useState('');
-  const [progress, setProgress] = React.useState(0);
 
-  const handleSubmit = () => {
-    setIsLoading(true);
-    Tesseract.recognize(image, 'eng', {
-      logger: (m) => {
-        console.log(m);
-        if (m.status === 'recognizing text') {
-          setProgress(parseInt(m.progress * 100));
+let pdfinput = document.querySelector(".selectpdf");
+let upload = document.querySelector(".upload"); 
+let afterupload = document.querySelector(".afterupload");
+let select = document.querySelector(".select"); 
+let download = document.querySelector(".download"); 
+let pdftext = document.querySelector(".pdftext"); 
+
+
+upload.addEventListener('click', () => {
+    let file = pdfinput.files[0]; 
+    if (file != undefined && file.type == "application/pdf") {
+        let fr = new FileReader(); 
+        fr.readAsDataURL(file); 
+        fr.onload = () => {
+            let res = fr.result; 
+            if (pwd.value == "") {
+                extractText(res, false); 
+            } else {
+                extractText(res, true);
+            }
         }
-      },
-    })
-      .catch((err) => {
-        console.error(err);
-      })
-      .then((result) => {
-        console.log(result.data);
-        setText(result.data.text);
-        setIsLoading(false);
-      });
-  };
+    } else {
+        alert("Select a valid PDF file");
+    }
+});
 
+let alltext = [];
+async function extractText(url, pass) {
+    try {
+        let pdf;
+        if (pass) {
+            pdf = await pdfjsLib.getDocument({ url: url, password: pwd.value }).promise; 
+        } else {
+            pdf = await pdfjsLib.getDocument(url).promise; 
+        }
+        let pages = pdf.numPages;
+        for (let i = 1; i <= pages; i++) {
+            let page = await pdf.getPage(i); 
+            let txt = await page.getTextContent(); 
+            let text = txt.items.map((s) => s.str).join(""); 
+            alltext.push(text); 
+        }
+        alltext.map((e, i) => {
+            select.innerHTML += `<option value="${i+1}">${i+1}</option>`; 
+        });
+        afterProcess();
+    } catch (err) {
+        alert(err.message);
+    }
+}
+
+function afterProcess() {
+    pdftext.value = alltext[select.value - 1]; 
+    download.href = "data:text/plain;charset=utf-8," + encodeURIComponent(alltext[select.value - 1]); 
+    afterupload.style.display = "flex";
+    document.querySelector(".another").style.display = "unset"; 
+}
+
+function Ocr(props) {
   return (
-    <div className="container" style={{ height: '100vh' }}>
-      <div className="row h-100">
-        <div className="col-md-5 mx-auto h-100 d-flex flex-column justify-content-center">
-          {!isLoading && (
-            <h1 className="text-center py-5 mc-5">Image To Text</h1>
-          )}
-
-          {isLoading && (
-            <>
-              <progress className="form-control" value={progress} max="100">
-                {progress}%{' '}
-              </progress>{' '}
-              <p className="text-center py-0 my-0">Converting:- {progress} %</p>
-            </>
-          )}
-          {!isLoading && !text && (
-            <>
-              <input
-                type="file"
-                onChange={(e) =>
-                  setImage(URL.createObjectURL(e.target.files[0]))
-                }
-                className="form-control mt-5 mb-2"
-              />
-              <input
-                type="button"
-                onClick={handleSubmit}
-                className="btn btn-primary mt-5"
-                value="Convert"
-              />
-            </>
-          )}
-          {!isLoading && text && (
-            <>
-              <textarea
-                className="form-control w-100 mt-5"
-                rows="30"
-                value={text}
-                onChange={(e) => setText(e.target.value)}
-              ></textarea>
-            </>
-          )}
+    <div>
+    <div className="pdfwork">
+        <button className="another" onclick="location.reload()">Extract Another PDF</button>
+        <span>Select PDF</span>
+        <input type="file" className="selectpdf"/>
+        <button className="upload">Upload</button>
+        <div className="afterupload">
+            <span>Select Page</span>
+            <select className="selectpage" onchange="afterProcess()"></select>
+            <a href="" className="download" download>Download Pdf Text</a>
+            <textarea className="pdftext"></textarea>
         </div>
-      </div>
+    </div>
     </div>
   );
-};
+}
 
-export default App;
+export default Ocr;
